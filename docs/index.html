@@ -1,192 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rahul Kumar - Developer Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Optional: For icons like GitHub, LinkedIn. Add if you want to use them -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-    <!-- Header (Prime Video style top bar) -->
-    <header>
-        <div class="container">
-            <h1 class="logo"><a href="#hero">Rahul Kumar</a></h1>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-            <!-- Mobile Menu Toggle (optional for future, not fully styled here) -->
-            <!-- <div class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </div> -->
-        </div>
-    </header>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calculator (single file)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron',sans-serif}
+body{height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1b1b1b,#343434)}
+.wrapper{width:310px;padding:2rem 1.5rem;border-radius:18px;background:rgba(255,255,255,.05);box-shadow:0 8px 25px rgba(0,0,0,.35);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1)}
+.title{text-align:center;color:#00d0ff;margin-bottom:1.2rem;letter-spacing:2px}
+.display{width:100%;height:60px;background:#111;color:#00ff90;font-size:2.2rem;line-height:60px;text-align:right;padding:0 .8rem;border-radius:8px;margin-bottom:1rem;box-shadow:inset 0 0 10px #000;user-select:none}
+@keyframes pop{0%{transform:scale(.98)}60%{transform:scale(1.03)}100%{transform:scale(1)}}
+.pop{animation:pop .25s}
+.buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+button{padding:1rem 0;font-size:1.2rem;color:#f0f0f0;background:#262626;border:none;border-radius:12px;cursor:pointer;position:relative;overflow:hidden;transition:transform .18s}
+button:active{transform:scale(.93)}
+button:active::after{width:160px;height:160px}
+button::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,.18);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+.op{background:#0047ff}.equals{background:#00b43c;grid-row:4/6}.zero{grid-column:1/3}.action{background:#ff0033}
+</style>
+</head><body>
 
-    <!-- Hero Section (The "Now Streaming" banner) -->
-    <section id="hero" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <img src="profile.jpg" alt="Rahul Kumar Profile" class="profile-picture">
-                <h2>Hello, I'm Rahul Kumar</h2>
-                <p class="role">Developer | Crafting Digital Experiences</p>
-                <p class="tagline">Passionate about building robust and user-friendly applications.</p>
-                <a href="#projects" class="btn primary-btn">Explore My Work <i class="fas fa-play"></i></a>
-            </div>
-        </div>
-    </section>
+<div class="wrapper">
+<h1 class="title">Calculator</h1>
+<div id="display" class="display">0</div>
+<div class="buttons">
+<button data-key="clear" class="action">C</button>
+<button data-key="del"   class="action">⌫</button>
+<button data-key="/"     class="op">÷</button>
+<button data-key="*"     class="op">×</button>
+<button data-key="7">7</button><button data-key="8">8</button><button data-key="9">9</button>
+<button data-key="-" class="op">−</button>
+<button data-key="4">4</button><button data-key="5">5</button><button data-key="6">6</button>
+<button data-key="+" class="op">+</button>
+<button data-key="1">1</button><button data-key="2">2</button><button data-key="3">3</button>
+<button data-key="=" class="equals">=</button>
+<button data-key="0" class="zero">0</button><button data-key=".">.</button>
+</div>
+</div>
 
-    <!-- About Me Section -->
-    <section id="about" class="section-padded">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <p> I am a dedicated developer with a strong foundation in both frontend and backend technologies. My journey in development has equipped me with a versatile skill set, allowing me to tackle complex problems and deliver efficient, scalable solutions.</p>
-                <p>I thrive on learning new technologies and am constantly seeking opportunities to grow. Whether it's bringing designs to life with HTML, CSS, and JavaScript, or building powerful server-side applications with Node.js and TypeScript, I am committed to creating impactful software.</p>
-                <p>Outside of coding, I enjoy exploring new concepts and staying updated with industry trends. Let's connect and build something amazing together!</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section (Mimicking a content row/carousel) -->
-    <section id="skills" class="section-padded content-row">
-        <div class="container">
-            <h2 class="section-title">My Skillset</h2>
-            <div class="carousel-container">
-                <div class="skill-cards-wrapper">
-                    <div class="skill-card">
-                        <img src="skill-icons/html.png" alt="HTML Icon"> <!-- Replace with actual icons -->
-                        <h3>HTML</h3>
-                    </div>
-                    <div class="skill-card">
-                        <img src="skill-icons/css.png" alt="CSS Icon">
-                        <h3>CSS</h3>
-                    </div>
-                    <div class="skill-card">
-                        <img src="skill-icons/javascript.png" alt="JavaScript Icon">
-                        <h3>JavaScript</h3>
-                    </div>
-                    <div class="skill-card">
-                        <img src="skill-icons/node.png" alt="Node.js Icon">
-                        <h3>Node.js</h3>
-                    </div>
-                    <div class="skill-card">
-                        <img src="skill-icons/typescript.png" alt="TypeScript Icon">
-                        <h3>TypeScript</h3>
-                    </div>
-                    <div class="skill-card">
-                        <img src="skill-icons/database.png" alt="Database Icon">
-                        <h3>Database</h3>
-                    </div>
-                    <div class="skill-card">
-                        <img src="skill-icons/c.png" alt="C Icon">
-                        <h3>C</h3>
-                    </div>
-                    <div class="skill-card">
-                        <img src="skill-icons/python.png" alt="Python Icon">
-                        <h3>Python</h3>
-                    </div>
-                    <div class="skill-card">
-                        <img src="skill-icons/excel.png" alt="Excel Icon">
-                        <h3>Excel</h3>
-                    </div>
-                    <div class="skill-card">
-                        <img src="skill-icons/word.png" alt="Word Icon">
-                        <h3>Word</h3>
-                    </div>
-                    <!-- Add more skill cards as needed -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section (Another content row/carousel) -->
-    <section id="projects" class="section-padded content-row">
-        <div class="container">
-            <h2 class="section-title">My Recent Projects</h2>
-            <div class="carousel-container">
-                <div class="project-cards-wrapper">
-                    <!-- Project Card 1 -->
-                    <div class="project-card">
-                        <img src="project-images/project1.jpg" alt="Project 1 Thumbnail">
-                        <div class="card-content">
-                            <h3>Project Alpha</h3>
-                            <p>A web application built with HTML, CSS, and JavaScript. Focused on responsive design and interactive features.</p>
-                            <div class="project-links">
-                                <a href="https://github.com/wwkumarrahulcom-jpg/project-alpha" target="_blank" class="btn small-btn"><i class="fab fa-github"></i> GitHub</a>
-                                <!-- <a href="https://your-demo-link.com" target="_blank" class="btn small-btn">Live Demo</a> -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Project Card 2 -->
-                    <div class="project-card">
-                        <img src="project-images/project2.jpg" alt="Project 2 Thumbnail">
-                        <div class="card-content">
-                            <h3>Backend Service X</h3>
-                            <p>Developed a RESTful API using Node.js and TypeScript, integrated with a database for data management.</p>
-                            <div class="project-links">
-                                <a href="https://github.com/wwkumarrahulcom-jpg/project-beta" target="_blank" class="btn small-btn"><i class="fab fa-github"></i> GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- Project Card 3 -->
-                     <div class="project-card">
-                        <img src="project-images/project3.jpg" alt="Project 3 Thumbnail">
-                        <div class="card-content">
-                            <h3>Data Analytics Tool</h3>
-                            <p>A Python-based script for analyzing large datasets, leveraging my Excel skills for report generation.</p>
-                            <div class="project-links">
-                                <a href="https://github.com/wwkumarrahulcom-jpg/project-gamma" target="_blank" class="btn small-btn"><i class="fab fa-github"></i> GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Add more project cards here following the same structure -->
-                    <div class="project-card">
-                        <img src="project-images/project4.jpg" alt="Project 4 Thumbnail">
-                        <div class="card-content">
-                            <h3>C Language Algorithms</h3>
-                            <p>Implementation of various algorithms and data structures in C language, showcasing foundational CS skills.</p>
-                            <div class="project-links">
-                                <a href="https://github.com/wwkumarrahulcom-jpg/c-algorithms" target="_blank" class="btn small-btn"><i class="fab fa-github"></i> GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section-padded">
-        <div class="container">
-            <h2 class="section-title">Connect With Me</h2>
-            <p>I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
-            <div class="contact-info">
-                <p><i class="fas fa-envelope"></i> Email: <a href="mailto:ww.kumar.rahul.com@gmail.com">ww.kumar.rahul.com@gmail.com</a></p>
-                <p><i class="fas fa-phone-alt"></i> Phone: <a href="tel:+917050284173">+91 7050284173</a></p>
-                <p><i class="fas fa-map-marker-alt"></i> Location: Delhi, India</p>
-                <div class="social-links">
-                    <a href="https://github.com/wwkumarrahulcom-jpg" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="https://www.instagram.com/_krishna__kant/" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-                    <!-- Add LinkedIn if you have one -->
-                    <!-- <a href="https://www.linkedin.com/in/yourprofile" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a> -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 Rahul Kumar. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+<script>
+const dsp=document.getElementById('display');
+let cur='0', prev=null, op=null;
+document.querySelectorAll('button').forEach(b=>b.onclick=()=>press(b.dataset.key));
+function press(k){
+ if(k==='clear')return cur='0',prev=null,op=null,draw();
+ if(k==='del')  return cur=cur.length>1?cur.slice(0,-1):'0',draw();
+ if(k==='=')    return calc();
+ if(['+','-','*','/'].includes(k)) return setOp(k);
+ if(k==='.'&&cur.includes('.'))return;
+ cur=cur==='0'&&k!=='.'?k:cur+k;draw();
+}
+function setOp(o){if(op)calc();prev=cur;cur='0';op=o}
+function calc(){
+ if(!op||prev===null)return;
+ const a=+prev,b=+cur;
+ cur=(op=='+')?a+b:op=='-'?a-b:op=='*'?a*b:b===0?'∞':a/b;
+ cur=cur.toString();op=null;prev=null;draw();}
+function draw(){dsp.textContent=cur;dsp.classList.remove('pop');void dsp.offsetWidth;dsp.classList.add('pop');}
+</script>
+</body></html>
