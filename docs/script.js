@@ -68,10 +68,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 });
-projects.push({
-  title: 'Dynamic Calculator',
-  img:  'project-images/calculator.jpg',
-  desc: 'Animated vanilla-JS calculator with ripple buttons & pop display.',
-  demo: 'https://wwkumarrahulcom-jpg.github.io/my-portfolio/calculator-app/',
-  code: 'https://github.com/wwkumarrahulcom-jpg/my-portfolio/tree/main/docs/calculator-app'
-});
+
