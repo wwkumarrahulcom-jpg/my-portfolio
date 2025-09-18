@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calculator (single file)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron',sans-serif}
+body{height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1b1b1b,#343434)}
+.wrapper{width:310px;padding:2rem 1.5rem;border-radius:18px;background:rgba(255,255,255,.05);box-shadow:0 8px 25px rgba(0,0,0,.35);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1)}
+.title{text-align:center;color:#00d0ff;margin-bottom:1.2rem;letter-spacing:2px}
+.display{width:100%;height:60px;background:#111;color:#00ff90;font-size:2.2rem;line-height:60px;text-align:right;padding:0 .8rem;border-radius:8px;margin-bottom:1rem;box-shadow:inset 0 0 10px #000;user-select:none}
+@keyframes pop{0%{transform:scale(.98)}60%{transform:scale(1.03)}100%{transform:scale(1)}}
+.pop{animation:pop .25s}
+.buttons{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+button{padding:1rem 0;font-size:1.2rem;color:#f0f0f0;background:#262626;border:none;border-radius:12px;cursor:pointer;position:relative;overflow:hidden;transition:transform .18s}
+button:active{transform:scale(.93)}
+button:active::after{width:160px;height:160px}
+button::after{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,.18);border-radius:50%;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+.op{background:#0047ff}.equals{background:#00b43c;grid-row:4/6}.zero{grid-column:1/3}.action{background:#ff0033}
+</style>
+</head><body>
+
+<div class="wrapper">
+<h1 class="title">Calculator</h1>
+<div id="display" class="display">0</div>
+<div class="buttons">
+<button data-key="clear" class="action">C</button>
+<button data-key="del"   class="action">⌫</button>
+<button data-key="/"     class="op">÷</button>
+<button data-key="*"     class="op">×</button>
+<button data-key="7">7</button><button data-key="8">8</button><button data-key="9">9</button>
+<button data-key="-" class="op">−</button>
+<button data-key="4">4</button><button data-key="5">5</button><button data-key="6">6</button>
+<button data-key="+" class="op">+</button>
+<button data-key="1">1</button><button data-key="2">2</button><button data-key="3">3</button>
+<button data-key="=" class="equals">=</button>
+<button data-key="0" class="zero">0</button><button data-key=".">.</button>
+</div>
+</div>
+
+<script>
+const dsp=document.getElementById('display');
+let cur='0', prev=null, op=null;
+document.querySelectorAll('button').forEach(b=>b.onclick=()=>press(b.dataset.key));
+function press(k){
+ if(k==='clear')return cur='0',prev=null,op=null,draw();
+ if(k==='del')  return cur=cur.length>1?cur.slice(0,-1):'0',draw();
+ if(k==='=')    return calc();
+ if(['+','-','*','/'].includes(k)) return setOp(k);
+ if(k==='.'&&cur.includes('.'))return;
+ cur=cur==='0'&&k!=='.'?k:cur+k;draw();
+}
+function setOp(o){if(op)calc();prev=cur;cur='0';op=o}
+function calc(){
+ if(!op||prev===null)return;
+ const a=+prev,b=+cur;
+ cur=(op=='+')?a+b:op=='-'?a-b:op=='*'?a*b:b===0?'∞':a/b;
+ cur=cur.toString();op=null;prev=null;draw();}
+function draw(){dsp.textContent=cur;dsp.classList.remove('pop');void dsp.offsetWidth;dsp.classList.add('pop');}
+</script>
+</body></html>
